@@ -1,4 +1,5 @@
 fire	fire-module.html
 fire.__package__	fire-module.html#__package__
+fire.fireSize	fire-module.html#fireSize
 fire.Fire	fire.Fire-class.html
 fire.Fire.Likelihood	fire.Fire-class.html#Likelihood

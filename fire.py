@@ -23,7 +23,7 @@ class Fire(thinkbayes.Suite):
 		@type hypo: xrange
 		@param data: the values for
 		heatflux and distance from the fire (q, r)
-		@type: tuple
+		@type data: tuple
 		"""
 		q = data[0]
 		r = data[1]

@@ -57,7 +57,7 @@
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
 <a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-string">"thinkbayes_modules"</tt><tt class="py-op">)</tt> </tt>
-<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">thinkbayes</tt> <tt class="py-keyword">import</tt> <tt class="py-name">Pmf</tt><tt class="py-op">,</tt> <tt class="py-name">Suite</tt><tt class="py-op">,</tt> <tt class="py-name">MakeGaussianPmf</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">thinkbayes</tt> </tt>
 <a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">numpy</tt> </tt>
 <a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
 <a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">myplot</tt> </tt>
@@ -67,7 +67,7 @@
 <a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-string">measurement distance</tt> </tt>
 <a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
 <a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
-<a name="Fire"></a><div id="Fire-def"><a name="L13"></a><tt class="py-lineno">13</tt> <a class="py-toggle" href="#" id="Fire-toggle" onclick="return toggle('Fire');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="fire.Fire-class.html">Fire</a><tt class="py-op">(</tt><tt class="py-base-class">Suite</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="Fire"></a><div id="Fire-def"><a name="L13"></a><tt class="py-lineno">13</tt> <a class="py-toggle" href="#" id="Fire-toggle" onclick="return toggle('Fire');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="fire.Fire-class.html">Fire</a><tt class="py-op">(</tt><tt class="py-base-class">thinkbayes</tt><tt class="py-op">.</tt><tt class="py-base-class">Suite</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="Fire-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Fire-expanded"><a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
 <a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-docstring">        The fire class we use</tt> </tt>
 <a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">        to generate a pmf of </tt> </tt>
@@ -75,23 +75,54 @@
 <a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="Fire.Likelihood"></a><div id="Fire.Likelihood-def"><a name="L19"></a><tt class="py-lineno">19</tt> <a class="py-toggle" href="#" id="Fire.Likelihood-toggle" onclick="return toggle('Fire.Likelihood');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="fire.Fire-class.html#Likelihood">Likelihood</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">hypo</tt><tt class="py-op">,</tt> <tt class="py-param">data</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="Fire.Likelihood-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="Fire.Likelihood-expanded"><a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">                <tt class="py-docstring">"""</tt> </tt>
-<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">                @param hypo: swag</tt> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">                @type hypo: xrange</tt> </tt>
-<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">                @param return: Suite</tt> </tt>
-<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">                """</tt> </tt>
-<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">hypo</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">data</tt><tt class="py-op">:</tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
-<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-number">1.0</tt><tt class="py-op">/</tt><tt class="py-name">hypo</tt> </tt>
-</div></div><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">                @param hypo: the range of hypothesis</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">                used to generate a prior</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">                @type hypo: xrange</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">                @param data: the values for</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-docstring">                heatflux and distance from the fire (q, r)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-docstring">                @type data: tuple</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-docstring">                """</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                <tt class="py-name">q</tt> <tt class="py-op">=</tt> <tt class="py-name">data</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">                <tt class="py-name">r</tt> <tt class="py-op">=</tt> <tt class="py-name">data</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
 <a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
-<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-name">hypos</tt> <tt class="py-op">=</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">1001</tt><tt class="py-op">)</tt> </tt>
-<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-name">suite</tt> <tt class="py-op">=</tt> <tt id="link-0" class="py-name" targets="Class fire.Fire=fire.Fire-class.html"><a title="fire.Fire" class="py-name" href="#" onclick="return doclink('link-0', 'Fire', 'link-0');">Fire</a></tt><tt class="py-op">(</tt><tt class="py-name">hypos</tt><tt class="py-op">)</tt> </tt>
-<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-name">myplot</tt><tt class="py-op">.</tt><tt class="py-name">Pmf</tt><tt class="py-op">(</tt><tt class="py-name">suite</tt><tt class="py-op">)</tt> </tt>
-<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-name">myplot</tt><tt class="py-op">.</tt><tt class="py-name">Show</tt><tt class="py-op">(</tt><tt class="py-name">xlabel</tt><tt class="py-op">=</tt><tt class="py-string">'Number of trains'</tt><tt class="py-op">,</tt> </tt>
-<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">                <tt class="py-name">ylabel</tt><tt class="py-op">=</tt><tt class="py-string">'Probability'</tt><tt class="py-op">)</tt> </tt>
-<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">                <tt class="py-name">q_star</tt> <tt class="py-op">=</tt> <tt id="link-0" class="py-name" targets="Function fire.fireSize()=fire-module.html#fireSize"><a title="fire.fireSize" class="py-name" href="#" onclick="return doclink('link-0', 'fireSize', 'link-0');">fireSize</a></tt><tt class="py-op">(</tt><tt class="py-name">q</tt><tt class="py-op">,</tt> <tt class="py-name">r</tt><tt class="py-op">)</tt> <tt class="py-comment">#Expected firesize</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                <tt class="py-name">lam</tt> <tt class="py-op">=</tt> <tt class="py-name">hypo</tt><tt class="py-op">-</tt><tt class="py-name">q_star</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                <tt class="py-name">like</tt> <tt class="py-op">=</tt> <tt class="py-name">thinkbayes</tt><tt class="py-op">.</tt><tt class="py-name">EvalGaussianPdf</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">50</tt><tt class="py-op">,</tt> <tt class="py-name">lam</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">like</tt> </tt>
+</div></div><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="fireSize"></a><div id="fireSize-def"><a name="L39"></a><tt class="py-lineno">39</tt> <a class="py-toggle" href="#" id="fireSize-toggle" onclick="return toggle('fireSize');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fire-module.html#fireSize">fireSize</a><tt class="py-op">(</tt><tt class="py-param">q</tt><tt class="py-op">,</tt> <tt class="py-param">r</tt><tt class="py-op">,</tt> <tt class="py-param">theta</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-param">X</tt><tt class="py-op">=</tt><tt class="py-number">.3</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="fireSize-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="fireSize-expanded"><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-docstring">        @param q: heat flux data from sensor (kW/m^2)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt class="py-docstring">        @type q: integer</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-docstring">        @param r: distance from fire (m)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-docstring">        @type r: integer</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt class="py-docstring">        @param theta: angle of the sensor</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"><tt class="py-docstring">        @type theta: integer</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"><tt class="py-docstring">        @param X: radiative heat fraction</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-docstring">        @type X: integer</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt class="py-name">firesize</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">q</tt><tt class="py-op">*</tt><tt class="py-number">4</tt><tt class="py-op">*</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">pi</tt><tt class="py-op">*</tt><tt class="py-name">r</tt><tt class="py-op">**</tt><tt class="py-number">2</tt><tt class="py-op">)</tt><tt class="py-op">/</tt><tt class="py-op">(</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">cos</tt><tt class="py-op">(</tt><tt class="py-name">theta</tt><tt class="py-op">)</tt><tt class="py-op">*</tt><tt class="py-name">X</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">firesize</tt> </tt>
+</div><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">    <tt class="py-name">hypos</tt> <tt class="py-op">=</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-number">100</tt><tt class="py-op">,</tt> <tt class="py-number">1001</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">    <tt id="link-1" class="py-name" targets="Module fire=fire-module.html"><a title="fire" class="py-name" href="#" onclick="return doclink('link-1', 'fire', 'link-1');">fire</a></tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name" targets="Class fire.Fire=fire.Fire-class.html"><a title="fire.Fire" class="py-name" href="#" onclick="return doclink('link-2', 'Fire', 'link-2');">Fire</a></tt><tt class="py-op">(</tt><tt class="py-name">hypos</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">    <tt id="link-3" class="py-name"><a title="fire" class="py-name" href="#" onclick="return doclink('link-3', 'fire', 'link-1');">fire</a></tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">6.2</tt><tt class="py-op">,</tt> <tt class="py-number">.6</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">    <tt id="link-4" class="py-name"><a title="fire" class="py-name" href="#" onclick="return doclink('link-4', 'fire', 'link-1');">fire</a></tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">6.3</tt><tt class="py-op">,</tt> <tt class="py-number">.6</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">    <tt id="link-5" class="py-name"><a title="fire" class="py-name" href="#" onclick="return doclink('link-5', 'fire', 'link-1');">fire</a></tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">6.1</tt><tt class="py-op">,</tt> <tt class="py-number">.6</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">    <tt id="link-6" class="py-name"><a title="fire" class="py-name" href="#" onclick="return doclink('link-6', 'fire', 'link-1');">fire</a></tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">6.0</tt><tt class="py-op">,</tt> <tt class="py-number">.6</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">    <tt id="link-7" class="py-name"><a title="fire" class="py-name" href="#" onclick="return doclink('link-7', 'fire', 'link-1');">fire</a></tt><tt class="py-op">.</tt><tt class="py-name">Update</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-number">100</tt><tt class="py-op">,</tt> <tt class="py-number">.6</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">    <tt class="py-name">myplot</tt><tt class="py-op">.</tt><tt class="py-name">Pmf</tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="fire" class="py-name" href="#" onclick="return doclink('link-8', 'fire', 'link-1');">fire</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-name">myplot</tt><tt class="py-op">.</tt><tt class="py-name">Show</tt><tt class="py-op">(</tt><tt class="py-name">xlabel</tt><tt class="py-op">=</tt><tt class="py-string">'Fire Size'</tt><tt class="py-op">,</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">                <tt class="py-name">ylabel</tt><tt class="py-op">=</tt><tt class="py-string">'Probability'</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -124,7 +155,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Feb 17 10:49:31 2013
+    Generated by Epydoc 3.0.1 on Sun Feb 17 12:03:53 2013
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
