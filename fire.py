@@ -28,18 +28,18 @@ class Fire(thinkbayes.Suite):
 		q = data[0]
 		r = data[1]
 
-		q_star = fireSize(q, r) #Expected firesize
-		lam = hypo-q_star
+		q_star = fireSize(hypo, r)
+		error = q-q_star
 
-		like = thinkbayes.EvalGaussianPdf(0, 50, lam)
+		like = thinkbayes.EvalGaussianPdf(0, 50, error)
 		return like
 
 
 
-def fireSize(q, r, theta=0, X=.3):
+def fireSize(Q, r, theta=0, X=.3):
 	"""
-	@param q: heat flux data from sensor (kW/m^2)
-	@type q: integer
+	@param Q: hypothetical firesize
+	@type Q: integer
 	@param r: distance from fire (m)
 	@type r: integer
 	@param theta: angle of the sensor
@@ -48,7 +48,7 @@ def fireSize(q, r, theta=0, X=.3):
 	@type X: integer
 	"""
 
-	firesize = (q*4*math.pi*r**2)/(math.cos(theta)*X)
+	firesize = (math.cos(theta)*X*Q)/(4*math.pi*r**2)
 	return firesize
 
 
@@ -60,7 +60,6 @@ if __name__ == "__main__":
     fire.Update((6.3, .6))
     fire.Update((6.1, .6))
     fire.Update((6.0, .6))
-    fire.Update((100, .6))
 
     myplot.Pmf(fire)
     myplot.Show(xlabel='Fire Size',
