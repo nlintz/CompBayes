@@ -9,32 +9,33 @@ import numpy as np
 
 
 def findLikelihood(q, r, hypo):
-	distancePmf = thinkbayes.MakeGaussianPmf(r, 20, 3) #gaussian distribution of error
-	distanceDict = distancePmf.GetDict() #dictionary of this pmf, easier to use
-	q_starDict = {} #dictionary representing the qstar pmf
-	distances = sorted(distanceDict.keys()) #array of distances
-	P = [distanceDict[i] for i in distances] #'sorted' probabilities
+	Q = hypo
+	distancePmf = thinkbayes.MakeGaussianPmf(r, 10, 2) #gaussian distribution of error
+	qstarPmf = thinkbayes.Pmf()
 
-	q_starDist = sorted([heatflux(hypo, i) for i in distances]) #values for the qstar distribution
-	q_starPmf = pyplot.plot(q_starDist, P) #pmf is a matplotlib plot object
+	for  dist, p in distancePmf.Items():
+		q = heatflux(Q, dist)
+		qstarPmf.Set(q, p)
 
-	q_starValues = q_starPmf[0].get_xdata()
-	likelihoodValues = q_starPmf[0].get_ydata()
-	qData = np.where(q_starValues==q_starValues[q])
-	return likelihoodValues[qData][0]
+	myplot.Pmf(qstarPmf)
+	# myplot.Pmf(distancePmf)
+	myplot.Show()
+
+	return hypo
 
 
 def main():
-	hypos = xrange(0, 1001)
-	fire = Fire_distanceError(hypos)
+	findLikelihood(10, 100, 100)
+	# hypos = xrange(0, 1001)
+	# fire = Fire_distanceError(hypos)
 
-	fire.Update((100, 10))
-	fire.Update((105, 10.1))
-	fire.Update((101, 10))
-	fire.Update((102, 10.2))
+	# fire.Update((150, 1))
+	# fire.Update((150, 1))
+	# fire.Update((150, 1))
+	# fire.Update((150, 1))
 
-	myplot.Pmf(fire)
-	myplot.Show(xlabel='Fire Size', ylabel='Probability')
+	# myplot.Pmf(fire)
+	# myplot.Show(xlabel='Fire Size', ylabel='Probability')
 
 
 class Fire_distanceError(thinkbayes.Suite):
