@@ -3,10 +3,10 @@ sys.path.append("thinkbayes_modules")
 
 import myplot
 import thinkbayes
-import 
+from trianglePrior import *
 from heatflux import *
 
-class Fire_distanceError(thinkbayes.Suite):
+class Fire_DistanceError(thinkbayes.Suite):
 	"""
 	The fire class we use
 	to generate a pmf of 
@@ -30,18 +30,41 @@ class Fire_distanceError(thinkbayes.Suite):
 
 def findLikelihood(q, r, hypo):
 	Q = hypo
-	distancePmf = thinkbayes.MakeGaussianPmf(r, 10, 2) #gaussian distribution of error
+	distancePmf = trianglePrior(r, (1.0/3)) #gaussian distribution of error
+
 	qstarPmf = thinkbayes.Pmf()
 
 	for  dist, p in distancePmf.Items():
-		q = heatflux(Q, dist)
-		qstarPmf.Set(q, p)
+		qstar = heatflux(Q, dist)
+		qstarPmf.Set(qstar, p)
 
-	myplot.Pmf(qstarPmf)
-	# myplot.Pmf(distancePmf)
-	myplot.Show()
+	qstars = sorted(qstarPmf.GetDict().keys())
+	qNearest = nearestNeighbor(qstars, q)
+	qstar = qstars[qNearest]
 
-	return hypo
+	# if qstar > q:
+	# 	right = qstarPmf.Prob(qstar)
+	# 	left = qstarPmf.Prob(qstars[qNearest-1])
+	# 	like = (right+left)/2
+	
+	# else:
+	# 	left = qstarPmf.Prob(qstar)
+	# 	right = qstarPmf.Prob(qstars[qNearest+1])
+	# 	like = (right+left)/2
+	like = qstarPmf.Prob(qstar)
+	return like
+
+def nearestNeighbor(lst, val):
+	indices = range(len(lst))
+	return min(indices, key=lambda x: abs(lst[x]-val))
+
+def main():
+	findLikelihood(.4, 8, 1000)
+
+if __name__ == "__main__":
+	main()
+
+
 
 # def findLikelihood(q, r, hypo):
 # 	distancePmf = thinkbayes.MakeGaussianPmf(r, 20, 3) #gaussian distribution of error

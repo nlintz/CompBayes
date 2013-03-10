@@ -2,8 +2,9 @@ import sys
 sys.path.append("thinkbayes_modules")
 import thinkbayes
 import numpy
-import math
+import scipy.stats
 import myplot
+import pylab
 import matplotlib.pyplot as pyplot
 import numpy as np
 from heatflux import *
@@ -15,17 +16,43 @@ This class will account for fire size given an uncertain
 measurement distance
 '''
 def main():
-	findLikelihood(10, 100, 100)
+	hypos = xrange(100, 1001)
+	fire_DistanceError = Fire_DistanceError(hypos)
 
-	# hypos = xrange(0, 1001)
-	# fire = Fire_distanceError(hypos)
+	fire_DistanceError.Update((.19, 10))
+	fire_DistanceError.Update((.192, 10))
+	fire_DistanceError.Update((.192, 10))
+	fire_DistanceError.Update((.20, 10))
 
-	# fire.Update((100, 10))
-	# fire.Update((105, 10.1))
-	# fire.Update((101, 10))
-	# fire.Update((102, 10.2))
+	fire_SensorError = Fire_SensorError(hypos)
 
-	# myplot.Pmf(fire)
+	fire_SensorError.Update((.19, 10))
+	fire_SensorError.Update((.192, 10))
+	fire_SensorError.Update((.192, 10))
+	fire_SensorError.Update((.20, 10))
+
+	randomSamples = []
+	for i in range(500):
+		# randomSamples.append(fire_DistanceError.Prob(fire_DistanceError.Random()))
+		# randomSamples.append(fire_SensorError.Prob(fire_SensorError.Random()))
+		randomSamples.append(fire_DistanceError.Random())
+		randomSamples.append(fire_SensorError.Random())
+		
+	randomSamples.append(.1)
+
+	kde = scipy.stats.gaussian_kde(randomSamples)
+	evalkde = kde.evaluate(hypos)
+	print randomSamples
+	print evalkde
+
+	# myplot.Pmf(fire_SensorError)
+	# myplot.Pmf(fire_DistanceError)
+	pylab.plot(hypos, evalkde)
+	# myplot.Show()
+	pylab.show()
+
+
+	# myplot.Pmf(fire_SensorError)
 	# myplot.Show(xlabel='Fire Size', ylabel='Probability')
 
 

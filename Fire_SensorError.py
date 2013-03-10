@@ -3,7 +3,7 @@ sys.path.append("thinkbayes_modules")
 import myplot
 import thinkbayes
 from heatflux import *
-class Fire_sensorError(thinkbayes.Suite):
+class Fire_SensorError(thinkbayes.Suite):
 	"""
 	The fire class we use
 	to generate a pmf of 
@@ -24,5 +24,5 @@ class Fire_sensorError(thinkbayes.Suite):
 		q_star = heatflux(hypo, r)
 		error = q-q_star
 
-		like = thinkbayes.EvalGaussianPdf(0, 50, error)
+		like = thinkbayes.EvalGaussianPdf(0, .01, error)
 		return like
