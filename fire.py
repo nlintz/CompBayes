@@ -33,12 +33,10 @@ def main():
 
 	randomSamples = []
 	for i in range(500):
-		# randomSamples.append(fire_DistanceError.Prob(fire_DistanceError.Random()))
-		# randomSamples.append(fire_SensorError.Prob(fire_SensorError.Random()))
 		randomSamples.append(fire_DistanceError.Random())
 		randomSamples.append(fire_SensorError.Random())
 		
-	randomSamples.append(.1)
+	randomSamples.append(.1) #this is super weird
 
 	kde = scipy.stats.gaussian_kde(randomSamples)
 	evalkde = kde.evaluate(hypos)
