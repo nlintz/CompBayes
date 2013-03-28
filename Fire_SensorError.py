@@ -26,3 +26,7 @@ class Fire_SensorError(thinkbayes.Suite):
 
 		like = thinkbayes.EvalGaussianPdf(0, .01, error)
 		return like
+
+if __name__ == "__main__":
+	main()
+

@@ -30,7 +30,7 @@ def trianglePrior(mean, sigma):
 def main():
 	tp = trianglePrior(12, (1.0/3))
 	myplot.Pmf(tp)
-	myplot.Show()
+	myplot.Show(xlabel='Distance (feet)', ylabel='Probability')
 
 if __name__ == "__main__":
 	main()
