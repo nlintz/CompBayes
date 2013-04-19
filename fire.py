@@ -18,14 +18,14 @@ measurement distance
 '''
 def main():
 	hypos = xrange(100, 1001)
-	fire_DistanceError = Fire_DistanceError(hypos)
+	# fire_DistanceError = Fire_DistanceError(hypos)
 
 	# fire_DistanceError.Update((.19, 10))
 	# fire_DistanceError.Update((.192, 10))
 	# fire_DistanceError.Update((.192, 10))
 	# fire_DistanceError.Update((.20, 10))
 
-	# fire_SensorError = SensorPMF(1)
+	fire_SensorError = SensorPMF(1)
 	
 	# randomSamples = []
 	# for i in range(1000):
@@ -34,12 +34,12 @@ def main():
 	# kde = scipy.stats.gaussian_kde(randomSamples)
 	# evalkde = kde.evaluate(hypos)
 
-	# myplot.Pmf(fire_SensorError)
-	myplot.Pmf(fire_DistanceError)
-	# myplot.Pmf(fire_SensorError)
-	myplot.Show(xlabel='Fire Size (kilowatts)', ylabel='Probability')
+	myplot.Pmf(fire_SensorError)
+	# myplot.Pmf(fire_DistanceError)
+	myplot.Pmf(fire_SensorError)
+	# myplot.Show(xlabel='Fire Size (kilowatts)', ylabel='Probability')
 
-	# myplot.Show()
+	myplot.Show()
 	# pylab.xlabel('Fire Size (kilowatts)')
 	# pylab.ylabel('Probability')
 	# pylab.plot(hypos, evalkde)
